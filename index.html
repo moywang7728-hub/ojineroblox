@@ -3,51 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OjinE Roblox Store</title>
+    <title>OjinE Roblox Store - Pantai Edition</title>
     <style>
         :root {
-            --bg-color: #e0f7fa;
+            --bg-sky: #e0f7fa;
             --card-bg: #ffffff;
-            --text-color: #006064;
-            --accent: #00acc1;
+            --text-main: #006064;
+            --accent-blue: #00bcd4;
+            --accent-yellow: #ffeb3b;
+            --accent-orange: #ff9800;
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background: linear-gradient(135deg, #b2ebf2 0%, #e0f7fa 50%, #fffde7 100%);
+            color: var(--text-main);
             margin: 0;
             padding: 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
         .container {
             width: 100%;
             max-width: 480px;
             background: var(--card-bg);
             padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 188, 212, 0.15);
             box-sizing: border-box;
+            border: 3px solid #ffe082;
         }
         h1 {
             text-align: center;
-            font-size: 24px;
+            font-size: 26px;
             margin-bottom: 5px;
             color: #00838f;
+            text-shadow: 1px 1px 2px rgba(255, 235, 59, 0.5);
         }
         p.subtitle {
             text-align: center;
             font-size: 14px;
-            color: #555;
+            color: #ff8f00;
+            font-weight: 600;
             margin-bottom: 20px;
         }
         .section-title {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             margin: 15px 0 10px 0;
-            border-bottom: 2px solid var(--accent);
+            border-bottom: 2px dashed var(--accent-blue);
             padding-bottom: 5px;
+            color: #00838f;
         }
         .grid-options {
             display: grid;
@@ -56,45 +63,69 @@
             margin-bottom: 15px;
         }
         .option-card {
-            background: #f0f8ff;
-            border: 2px solid #b2ebf2;
+            background: #e0f7fa;
+            border: 2px solid #80deea;
             padding: 12px;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-size: 14px;
+            color: #006064;
+        }
+        .option-card:hover {
+            background: #b2ebf2;
+            border-color: #00acc1;
         }
         .option-card.selected {
-            border-color: #00838f;
-            background: #e0f2f1;
+            border-color: #fbc02d;
+            background: #fffde7;
             font-weight: bold;
+            box-shadow: 0 0 10px rgba(255, 235, 59, 0.6);
+        }
+        label {
+            font-size: 13px;
+            font-weight: bold;
+            color: #00838f;
+            display: block;
+            margin-top: 10px;
         }
         input, select {
             width: 100%;
             padding: 12px;
             margin-top: 5px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             border: 2px solid #b2ebf2;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 14px;
             box-sizing: border-box;
+            background-color: #f7fcfc;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus {
+            border-color: #00bcd4;
+            background-color: #fff;
         }
         .checkout-btn {
             width: 100%;
-            background-color: #25d366;
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
             color: white;
             border: none;
             padding: 15px;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             text-align: center;
-            margin-top: 10px;
-            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            transition: transform 0.1s;
+        }
+        .checkout-btn:active {
+            transform: scale(0.98);
         }
         .links-container {
             margin-top: 20px;
@@ -105,24 +136,25 @@
         .wa-link {
             display: block;
             text-align: center;
-            background: #0288d1;
+            background: linear-gradient(135deg, #0288d1 0%, #01579b 100%);
             color: white;
             text-decoration: none;
             padding: 12px;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: bold;
             font-size: 14px;
+            box-shadow: 0 3px 10px rgba(2, 136, 209, 0.3);
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🌊 OjinE Roblox Store</h1>
-    <p class="subtitle">Jasa Verifikasi & Top Up Robux Terpercaya</p>
+    <h1>🏖️ OjinE Roblox Store</h1>
+    <p class="subtitle">☀️ Jasa Verifikasi & Top Up Robux Terpercaya 🌊</p>
 
     <!-- Katalog Layanan -->
-    <div class="section-title">Pilih Layanan / Produk</div>
+    <div class="section-title">✨ Pilih Layanan / Produk</div>
     <div class="grid-options" id="productList">
         <div class="option-card" onclick="selectProduct(this, 'Jasa Verifikasi: Roblox Select', '20000', 'login')">
             <span>🛡️ Jasa Verifikasi: Roblox Select</span>
@@ -146,12 +178,13 @@
         </div>
     </div>
 
-    <!-- Form Dinamis -->
-    <div class="section-title">Data Pembeli</div>
+    <!-- Form Data Pembeli -->
+    <div class="section-title">📝 Data Pembeli</div>
     
     <label for="usernameInput">Username Roblox:</label>
     <input type="text" id="usernameInput" placeholder="Masukkan Username Roblox Anda">
 
+    <!-- Kolom Password terpisah yang akan muncul khusus untuk metode login -->
     <div id="passwordFieldContainer" style="display: none;">
         <label for="passwordInput">Password / Data Login:</label>
         <input type="text" id="passwordInput" placeholder="Masukkan Password akun Anda">
@@ -171,7 +204,7 @@
     <!-- Link Pendukung -->
     <div class="links-container">
         <a href="https://wa.me/6288277328333" target="_blank" class="wa-link">💬 Hubungi Admin WhatsApp</a>
-        <a href="https://whatsapp.com" target="_blank" class="wa-link" style="background: #00796b;">📢 Saluran Testimoni WhatsApp</a>
+        <a href="https://whatsapp.com" target="_blank" class="wa-link" style="background: linear-gradient(135deg, #00796b 0%, #004d40 100%);">📢 Saluran Testimoni WhatsApp</a>
     </div>
 </div>
 
@@ -187,7 +220,7 @@
         selectedProductTitle = title + " (" + (price.length > 5 ? "Rp " + price : price) + ")";
         productType = type;
 
-        // Munculkan kolom password HANYA jika metode login
+        // Atur kemunculan kolom password terpisah
         const passContainer = document.getElementById('passwordFieldContainer');
         if (type === 'login') {
             passContainer.style.display = 'block';
@@ -211,7 +244,7 @@
             return;
         }
         if (productType === 'login' && !password) {
-            alert("Harap masukkan Password/Data Login untuk layanan ini!");
+            alert("Harap masukkan Password / Data Login untuk layanan ini!");
             return;
         }
         if (!paymentMethod) {
@@ -225,7 +258,7 @@
                         `• Username: ${username}\n`;
         
         if (productType === 'login') {
-            message += `• Password/Login: ${password}\n`;
+            message += `• Password: ${password}\n`;
         }
 
         message += `• Pembayaran via: ${paymentMethod} (a.n. oujinelours)\n\n` +
