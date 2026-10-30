@@ -10,8 +10,6 @@
             --card-bg: #ffffff;
             --text-color: #006064;
             --accent: #00acc1;
-            --button-bg: #ffeb3b;
-            --button-text: #000;
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -123,35 +121,41 @@
     <h1>🌊 OjinE Roblox Store</h1>
     <p class="subtitle">Jasa Verifikasi & Top Up Robux Terpercaya</p>
 
-    <!-- Katalog Jasa & Robux -->
+    <!-- Katalog Layanan -->
     <div class="section-title">Pilih Layanan / Produk</div>
     <div class="grid-options" id="productList">
-        <div class="option-card" onclick="selectProduct(this, 'Jasa Verifikasi Roblox Select', '20000')">
+        <div class="option-card" onclick="selectProduct(this, 'Jasa Verifikasi: Roblox Select', '20000', 'login')">
             <span>🛡️ Jasa Verifikasi: Roblox Select</span>
             <strong>Rp 20.000</strong>
         </div>
-        <div class="option-card" onclick="selectProduct(this, 'Jasa Verifikasi Roblox Kids', '20000')">
+        <div class="option-card" onclick="selectProduct(this, 'Jasa Verifikasi: Roblox Kids', '20000', 'login')">
             <span>🛡️ Jasa Verifikasi: Roblox Kids</span>
             <strong>Rp 20.000</strong>
         </div>
-        <div class="option-card" onclick="selectProduct(this, 'Jasa Verifikasi Roblox Uncek', '22000')">
+        <div class="option-card" onclick="selectProduct(this, 'Jasa Verifikasi: Roblox Uncek', '22000', 'login')">
             <span>🛡️ Jasa Verifikasi: Roblox Uncek</span>
             <strong>Rp 22.000</strong>
         </div>
-        <div class="option-card" onclick="selectProduct(this, 'Robux via Username (Rate 15rb/100R)', '15000')">
+        <div class="option-card" onclick="selectProduct(this, 'Robux via Username (Rate 15rb/100R)', '15000', 'username')">
             <span>💎 Robux via Username (100R - 1000R)</span>
             <strong>Rp 15k/100R</strong>
         </div>
-        <div class="option-card" onclick="selectProduct(this, 'Robux via Login (Store Kelipatan)', '16000')">
+        <div class="option-card" onclick="selectProduct(this, 'Robux via Login (Store Kelipatan)', '16000', 'login')">
             <span>💎 Robux via Login (Mulai 80R - 10000R)</span>
             <strong>Mulai Rp 16k</strong>
         </div>
     </div>
 
-    <!-- Input Data Akun -->
+    <!-- Form Dinamis -->
     <div class="section-title">Data Pembeli</div>
-    <label for="accountData">Username / Data Akun Roblox:</label>
-    <input type="text" id="accountData" placeholder="Masukkan Username atau Password (jika via login)">
+    
+    <label for="usernameInput">Username Roblox:</label>
+    <input type="text" id="usernameInput" placeholder="Masukkan Username Roblox Anda">
+
+    <div id="passwordFieldContainer" style="display: none;">
+        <label for="passwordInput">Password / Data Login:</label>
+        <input type="text" id="passwordInput" placeholder="Masukkan Password akun Anda">
+    </div>
 
     <label for="paymentMethod">Metode Pembayaran:</label>
     <select id="paymentMethod">
@@ -173,27 +177,41 @@
 
 <script>
     let selectedProductTitle = "";
+    let productType = "";
 
-    function selectProduct(element, title, price) {
-        // Hapus seleksi lama
+    function selectProduct(element, title, price, type) {
         document.querySelectorAll('.option-card').forEach(card => {
             card.classList.remove('selected');
         });
-        // Beri tanda aktif ke yang dipilih
         element.classList.add('selected');
         selectedProductTitle = title + " (" + (price.length > 5 ? "Rp " + price : price) + ")";
+        productType = type;
+
+        // Munculkan kolom password HANYA jika metode login
+        const passContainer = document.getElementById('passwordFieldContainer');
+        if (type === 'login') {
+            passContainer.style.display = 'block';
+        } else {
+            passContainer.style.display = 'none';
+            document.getElementById('passwordInput').value = "";
+        }
     }
 
     function checkoutWhatsApp() {
-        const accountData = document.getElementById('accountData').value.trim();
+        const username = document.getElementById('usernameInput').value.trim();
+        const password = document.getElementById('passwordInput').value.trim();
         const paymentMethod = document.getElementById('paymentMethod').value;
 
         if (!selectedProductTitle) {
-            alert("Harap pilih salah satu produk/layanan terlebih dahulu!");
+            alert("Harap pilih salah satu produk atau layanan terlebih dahulu!");
             return;
         }
-        if (!accountData) {
-            alert("Harap isi Username atau Data Akun Roblox Anda!");
+        if (!username) {
+            alert("Harap masukkan Username Roblox Anda!");
+            return;
+        }
+        if (productType === 'login' && !password) {
+            alert("Harap masukkan Password/Data Login untuk layanan ini!");
             return;
         }
         if (!paymentMethod) {
@@ -202,11 +220,16 @@
         }
 
         const adminPhone = "6288277328333";
-        const message = `Halo Admin OjinE Roblox Store, saya ingin memesan:\n\n` +
+        let message = `Halo Admin OjinE Roblox Store, saya ingin memesan:\n\n` +
                         `• Layanan: ${selectedProductTitle}\n` +
-                        `• Data Akun: ${accountData}\n` +
-                        `• Pembayaran via: ${paymentMethod} (a.n. oujinelours)\n\n` +
-                        `Mohon segera diproses ya kak, bukti transfer akan segera dikirim. Terima kasih!`;
+                        `• Username: ${username}\n`;
+        
+        if (productType === 'login') {
+            message += `• Password/Login: ${password}\n`;
+        }
+
+        message += `• Pembayaran via: ${paymentMethod} (a.n. oujinelours)\n\n` +
+                   `Mohon segera diproses ya kak, bukti transfer akan segera dikirim. Terima kasih!`;
 
         const encodedMessage = encodeURIComponent(message);
         window.open(`https://wa.me/${adminPhone}?text=${encodedMessage}`, '_blank');
