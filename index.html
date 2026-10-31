@@ -222,4 +222,20 @@
         <label for="usernameInput">Username Roblox:</label>
         <input type="text" id="usernameInput" placeholder="Masukkan Username Roblox Anda">
 
-        <div id="passwordFieldContainer"
+        <div id="passwordFieldContainer" style="display: none;">
+            <label for="passwordInput">Password / Data Login:</label>
+            <input type="text" id="passwordInput" placeholder="Masukkan Password akun Anda">
+        </div>
+
+        <label for="paymentMethod">Metode Pembayaran:</label>
+        <select id="paymentMethod">
+            <option value="">-- Pilih Metode Pembayaran --</option>
+            <option value="DANA">DANA (a.n. oujinelours)</option>
+            <option value="QRIS">QRIS (a.n. oujinelours)</option>
+            <option value="Transfer Bank">Transfer Bank (a.n. oujinelours)</option>
+        </select>
+
+        <button class="checkout-btn" onclick="checkoutWhatsApp()">📱 Checkout ke WhatsApp Admin</button>
+    </div>
+
+    <!-- Link Pendukung Bubble Air -->
