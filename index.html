@@ -7,7 +7,7 @@
     <style>
         :root {
             --bg-color: #e0f7fa;
-            --card-bg: rgba(255, 255, 255, 0.92);
+            --card-bg: rgba(255, 255, 255, 0.95);
             --text-color: #006064;
             --accent-blue: #00bcd4;
             --accent-yellow: #ffeb3b;
@@ -37,7 +37,7 @@
         h1 {
             text-align: center;
             font-size: 26px;
-            margin-bottom: 5px;
+            margin: 0 0 5px 0;
             color: #00838f;
         }
         p.subtitle {
@@ -45,7 +45,7 @@
             font-size: 13px;
             color: #ff8f00;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin: 0 0 20px 0;
         }
         .section-title {
             font-size: 14px;
@@ -92,4 +92,134 @@
 
         .grid-options {
             display: flex;
-            flex-direction:
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .option-card {
+            background: #e0f7fa;
+            border: 2px solid #80deea;
+            padding: 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #006064;
+        }
+        .option-card.selected {
+            border-color: #fbc02d;
+            background: #fffde7;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(255, 235, 59, 0.6);
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: bold;
+            color: #00838f;
+            display: block;
+            margin-top: 10px;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 2px solid #b2ebf2;
+            border-radius: 10px;
+            font-size: 14px;
+            box-sizing: border-box;
+            background-color: #f7fcfc;
+            outline: none;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        /* Tombol Link Bubble Air */
+        .links-container {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .wa-link-bubble {
+            display: block;
+            text-align: center;
+            background: radial-gradient(circle at 30% 30%, #ffffff, #81d4fa 60%, #0288d1 100%);
+            border: 2px solid #4fc3f7;
+            color: #01579b;
+            text-decoration: none;
+            padding: 13px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: inset -2px -2px 5px rgba(1, 87, 155, 0.3), 0 4px 10px rgba(2, 136, 209, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🏖️ OjinE Roblox Store</h1>
+    <p class="subtitle">☀️ Jasa Verifikasi & Top Up Robux Terpercaya 🌊</p>
+
+    <!-- Kategori Utama Bubble Air -->
+    <div class="section-title">✨ Pilih Kategori Layanan</div>
+    <div class="category-buttons">
+        <button class="cat-btn active" id="btnJasa" onclick="showCategory('jasa')">🛠️ Jasa Roblox</button>
+        <button class="cat-btn" id="btnRobuxUsername" onclick="showCategory('robux-username')">💎 Robux via Username</button>
+        <button class="cat-btn" id="btnRobuxLogin" onclick="showCategory('robux-login')">🔑 Robux via Login</button>
+        <button class="cat-btn" id="btnRobuxGamepass" onclick="showCategory('robux-gamepass')">🎫 Robux via Game Pass</button>
+    </div>
+
+    <!-- Sub-Menu Produk -->
+    <div id="productSection">
+        <div class="section-title" id="sectionTitle">🛡️ Pilih Produk Jasa Roblox</div>
+        <div class="grid-options" id="productList">
+            <div class="option-card" onclick="selectProduct(this, 'Jasa Verifikasi Roblox Select', 'Rp 20.000', 'login')">
+                <span>🛡️ Jasa Verifikasi Roblox Select</span>
+                <strong>Rp 20.000</strong>
+            </div>
+            <div class="option-card" onclick="selectProduct(this, 'Jasa Verifikasi Roblox Kids', 'Rp 20.000', 'login')">
+                <span>🛡️ Jasa Verifikasi Roblox Kids</span>
+                <strong>Rp 20.000</strong>
+            </div>
+            <div class="option-card" onclick="selectProduct(this, 'Jasa Verifikasi Roblox Uncheck', 'Rp 22.000', 'login')">
+                <span>🛡️ Jasa Verifikasi Roblox Uncheck</span>
+                <strong>Rp 22.000</strong>
+            </div>
+            <div class="option-card" onclick="selectProduct(this, 'Verifikasi Muka Roblox', 'Rp 10.000', 'login')">
+                <span>👤 Verifikasi Muka Roblox</span>
+                <strong>Rp 10.000</strong>
+            </div>
+            <div class="option-card" onclick="selectProduct(this, 'Verifikasi ACC Robux', 'Rp 5.000', 'login')">
+                <span>🔑 Verifikasi ACC Robux</span>
+                <strong>Rp 5.000</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form Data Pembeli -->
+    <div id="formSection" style="display: none;">
+        <div class="section-title">📝 Data Pembeli</div>
+        
+        <label for="usernameInput">Username Roblox:</label>
+        <input type="text" id="usernameInput" placeholder="Masukkan Username Roblox Anda">
+
+        <div id="passwordFieldContainer"
