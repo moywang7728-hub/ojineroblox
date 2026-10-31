@@ -310,4 +310,76 @@
             listLogin.forEach(item => {
                 const card = document.createElement('div');
                 card.className = 'option-card';
-                card.onclick = function() { selectProduct(this, `Robux via Login (${item.r}R)`, `Rp ${item.price.toLocaleString('id-ID')}`, 'login');
+                card.onclick = function() { selectProduct(this, `Robux via Login (${item.r}R)`, `Rp ${item.price.toLocaleString('id-ID')}`, 'login'); };
+                card.innerHTML = `<span>💎 ${item.r} Robux (via Login)</span><strong>Rp ${item.price.toLocaleString('id-ID')}</strong>`;
+                container.appendChild(card);
+            });
+        }
+    }
+
+    function selectProduct(element, title, price, type) {
+        document.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
+        element.classList.add('selected');
+
+        selectedProductTitle = title + " - " + price;
+        productType = type;
+
+        document.getElementById('formSection').style.display = 'block';
+        const passContainer = document.getElementById('passwordFieldContainer');
+
+        if (type === 'login') {
+            passContainer.style.display = 'block';
+        } else {
+            passContainer.style.display = 'none';
+            document.getElementById('passwordInput').value = "";
+        }
+    }
+
+    function resetSelection() {
+        selectedProductTitle = "";
+        productType = "";
+        document.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
+        document.getElementById('formSection').style.display = 'none';
+    }
+
+    function checkoutWhatsApp() {
+        const username = document.getElementById('usernameInput').value.trim();
+        const password = document.getElementById('passwordInput').value.trim();
+        const paymentMethod = document.getElementById('paymentMethod').value;
+
+        if (!selectedProductTitle) {
+            alert("Harap pilih salah satu produk atau layanan!");
+            return;
+        }
+        if (!username) {
+            alert("Harap masukkan Username Roblox Anda!");
+            return;
+        }
+        if (productType === 'login' && !password) {
+            alert("Harap masukkan Password / Data Login!");
+            return;
+        }
+        if (!paymentMethod) {
+            alert("Harap pilih metode pembayaran!");
+            return;
+        }
+
+        const adminPhone = "6288277328333";
+        let message = `Halo Admin OjinE Roblox Store, saya ingin memesan:\n\n` +
+                        `• Layanan: ${selectedProductTitle}\n` +
+                        `• Username: ${username}\n`;
+        
+        if (productType === 'login') {
+            message += `• Password: ${password}\n`;
+        }
+
+        message += `• Pembayaran via: ${paymentMethod} (a.n. oujinelours)\n\n` +
+                   `Mohon segera diproses ya kak, bukti transfer akan segera dikirim. Terima kasih!`;
+
+        const encodedMessage = encodeURIComponent(message);
+        window.open(`https://wa.me/${adminPhone}?text=${encodedMessage}`, '_blank');
+    }
+</script>
+
+</body>
+</html>
