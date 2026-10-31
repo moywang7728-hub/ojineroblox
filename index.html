@@ -7,7 +7,7 @@
     <style>
         :root {
             --bg-color: #e0f7fa;
-            --card-bg: rgba(255, 255, 255, 0.95);
+            --card-bg: rgba(255, 255, 255, 0.96);
             --text-color: #006064;
             --accent-blue: #00bcd4;
             --accent-yellow: #ffeb3b;
@@ -36,7 +36,7 @@
         }
         h1 {
             text-align: center;
-            font-size: 26px;
+            font-size: 24px;
             margin: 0 0 5px 0;
             color: #00838f;
         }
@@ -45,7 +45,7 @@
             font-size: 13px;
             color: #ff8f00;
             font-weight: 700;
-            margin: 0 0 20px 0;
+            margin: 0 0 15px 0;
         }
         .section-title {
             font-size: 14px;
@@ -56,7 +56,7 @@
             color: #00838f;
         }
 
-        /* Group Bubble Kategori Utama */
+        /* Tata letak tombol kategori rapi 2 kolom */
         .category-buttons {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -66,29 +66,27 @@
         
         /* Style Bubble Air */
         .cat-btn {
-            padding: 12px 8px;
+            padding: 12px 10px;
             background: radial-gradient(circle at 30% 30%, #ffffff, #b2ebf2 70%, #4dd0e1 100%);
             border: 2px solid #80deea;
-            border-radius: 25px;
-            font-size: 13px;
+            border-radius: 20px;
+            font-size: 12px;
             font-weight: bold;
             color: #006064;
             cursor: pointer;
-            transition: all 0.2s ease;
             text-align: center;
             box-shadow: inset -2px -2px 5px rgba(0, 96, 100, 0.2), 0 4px 10px rgba(0, 188, 212, 0.25);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1.2;
-            -webkit-tap-highlight-color: transparent;
+            outline: none;
+            transition: transform 0.1s;
+        }
+        .cat-btn:active {
+            transform: scale(0.96);
         }
         .cat-btn.active {
             background: radial-gradient(circle at 30% 30%, #ffffff, #ffe082 70%, #ffb300 100%);
             border-color: #ffd54f;
             color: #e65100;
             box-shadow: inset -2px -2px 5px rgba(230, 81, 0, 0.3), 0 6px 12px rgba(255, 179, 0, 0.4);
-            transform: translateY(-2px);
         }
 
         .grid-options {
@@ -103,13 +101,14 @@
             padding: 12px;
             border-radius: 12px;
             cursor: pointer;
-            transition: all 0.2s ease;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 14px;
+            font-size: 13px;
             color: #006064;
-            -webkit-tap-highlight-color: transparent;
+        }
+        .option-card:active {
+            transform: scale(0.98);
         }
         .option-card.selected {
             border-color: #fbc02d;
@@ -151,10 +150,8 @@
             text-align: center;
             margin-top: 15px;
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-            -webkit-tap-highlight-color: transparent;
         }
 
-        /* Tombol Link Bubble Air */
         .links-container {
             margin-top: 20px;
             display: flex;
@@ -173,7 +170,6 @@
             font-weight: bold;
             font-size: 14px;
             box-shadow: inset -2px -2px 5px rgba(1, 87, 155, 0.3), 0 4px 10px rgba(2, 136, 209, 0.3);
-            -webkit-tap-highlight-color: transparent;
         }
     </style>
 </head>
@@ -232,4 +228,173 @@
     var selectedProductTitle = "";
     var productType = "";
 
-    function showCategory(
+    function showCategory(cat) {
+        var buttons = document.querySelectorAll('.cat-btn');
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].classList.remove('active');
+        }
+        
+        resetSelection();
+
+        var container = document.getElementById('productList');
+        var titleElem = document.getElementById('sectionTitle');
+        container.innerHTML = "";
+
+        if (cat === 'jasa') {
+            document.getElementById('btnJasa').classList.add('active');
+            titleElem.innerText = "🛡️ Pilih Produk Jasa Roblox";
+
+            var listJasa = [
+                { title: 'Jasa Verifikasi Roblox Select', price: 'Rp 20.000', type: 'login' },
+                { title: 'Jasa Verifikasi Roblox Kids', price: 'Rp 20.000', type: 'login' },
+                { title: 'Jasa Verifikasi Roblox Uncheck', price: 'Rp 22.000', type: 'login' },
+                { title: 'Verifikasi Muka Roblox', price: 'Rp 10.000', type: 'login' },
+                { title: 'Verifikasi ACC Robux', price: 'Rp 5.000', type: 'login' }
+            ];
+
+            listJasa.forEach(function(item) {
+                var card = document.createElement('div');
+                card.className = 'option-card';
+                card.onclick = function() { selectProduct(this, item.title, item.price, item.type); };
+                card.innerHTML = '<span>🛡️ ' + item.title + '</span><strong>' + item.price + '</strong>';
+                container.appendChild(card);
+            });
+
+        } else if (cat === 'robux-username') {
+            document.getElementById('btnRobuxUsername').classList.add('active');
+            titleElem.innerText = "💎 Robux via Username (Rate 15k/100R)";
+
+            for (var r = 100; r <= 1000; r += 100) {
+                (function(robuxCount) {
+                    var price = (robuxCount / 100) * 15000;
+                    var priceText = 'Rp ' + price.toLocaleString('id-ID');
+                    var card = document.createElement('div');
+                    card.className = 'option-card';
+                    card.onclick = function() { selectProduct(this, 'Robux via Username (' + robuxCount + 'R)', priceText, 'username'); };
+                    card.innerHTML = '<span>💎 ' + robuxCount + ' Robux (via Username)</span><strong>' + priceText + '</strong>';
+                    container.appendChild(card);
+                })(r);
+            }
+
+        } else if (cat === 'robux-login') {
+            document.getElementById('btnRobuxLogin').classList.add('active');
+            titleElem.innerText = "🔑 Robux via Login (Mulai 80R = Rp 16.000)";
+
+            var listLogin = [
+                { r: 80, price: 16000 },
+                { r: 160, price: 32000 },
+                { r: 240, price: 48000 },
+                { r: 320, price: 64000 },
+                { r: 400, price: 80000 },
+                { r: 480, price: 96000 },
+                { r: 560, price: 112000 },
+                { r: 640, price: 128000 },
+                { r: 720, price: 144000 },
+                { r: 800, price: 160000 },
+                { r: 1000, price: 200000 }
+            ];
+
+            listLogin.forEach(function(item) {
+                var priceText = 'Rp ' + item.price.toLocaleString('id-ID');
+                var card = document.createElement('div');
+                card.className = 'option-card';
+                card.onclick = function() { selectProduct(this, 'Robux via Login (' + item.r + 'R)', priceText, 'login'); };
+                card.innerHTML = '<span>🔑 ' + item.r + ' Robux (via Login)</span><strong>' + priceText + '</strong>';
+                container.appendChild(card);
+            });
+
+        } else if (cat === 'robux-gamepass') {
+            document.getElementById('btnRobuxGamepass').classList.add('active');
+            titleElem.innerText = "🎫 Robux via Game Pass (Rate 13.5k/100R)";
+
+            for (var r2 = 100; r2 <= 1000; r2 += 100) {
+                (function(robuxCount) {
+                    var price = (robuxCount / 100) * 13500;
+                    var priceText = 'Rp ' + price.toLocaleString('id-ID');
+                    var card = document.createElement('div');
+                    card.className = 'option-card';
+                    card.onclick = function() { selectProduct(this, 'Robux via Game Pass (' + robuxCount + 'R)', priceText, 'username'); };
+                    card.innerHTML = '<span>🎫 ' + robuxCount + ' Robux (via Game Pass)</span><strong>' + priceText + '</strong>';
+                    container.appendChild(card);
+                })(r2);
+            }
+        }
+    }
+
+    function selectProduct(element, title, price, type) {
+        var cards = document.querySelectorAll('.option-card');
+        for (var i = 0; i < cards.length; i++) {
+            cards[i].classList.remove('selected');
+        }
+        element.classList.add('selected');
+
+        selectedProductTitle = title + " - " + price;
+        productType = type;
+
+        document.getElementById('formSection').style.display = 'block';
+        var passContainer = document.getElementById('passwordFieldContainer');
+
+        if (type === 'login') {
+            passContainer.style.display = 'block';
+        } else {
+            passContainer.style.display = 'none';
+            document.getElementById('passwordInput').value = "";
+        }
+    }
+
+    function resetSelection() {
+        selectedProductTitle = "";
+        productType = "";
+        var cards = document.querySelectorAll('.option-card');
+        for (var i = 0; i < cards.length; i++) {
+            cards[i].classList.remove('selected');
+        }
+        document.getElementById('formSection').style.display = 'none';
+    }
+
+    function checkoutWhatsApp() {
+        var username = document.getElementById('usernameInput').value.trim();
+        var password = document.getElementById('passwordInput').value.trim();
+        var paymentMethod = document.getElementById('paymentMethod').value;
+
+        if (!selectedProductTitle) {
+            alert("Harap pilih salah satu produk!");
+            return;
+        }
+        if (!username) {
+            alert("Harap masukkan Username Roblox Anda!");
+            return;
+        }
+        if (productType === 'login' && !password) {
+            alert("Harap masukkan Password / Data Login!");
+            return;
+        }
+        if (!paymentMethod) {
+            alert("Harap pilih metode pembayaran!");
+            return;
+        }
+
+        var adminPhone = "6288277328333";
+        var message = "Halo Admin OjinE Roblox Store, saya ingin memesan:\n\n" +
+                        "• Layanan: " + selectedProductTitle + "\n" +
+                        "• Username: " + username + "\n";
+        
+        if (productType === 'login') {
+            message += "• Password: " + password + "\n";
+        }
+
+        message += "• Pembayaran via: " + paymentMethod + " (a.n. oujinelours)\n\n" +
+                   "Mohon segera diproses ya kak, bukti transfer akan segera dikirim. Terima kasih!";
+
+        var encodedMessage = encodeURIComponent(message);
+        window.open("https://wa.me/" + adminPhone + "?text=" + encodedMessage, '_blank');
+    }
+
+    // Load default category
+    document.addEventListener("DOMContentLoaded", function() {
+        showCategory('jasa');
+    });
+</script>
+
+</body>
+</html>
