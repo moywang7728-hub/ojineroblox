@@ -177,15 +177,17 @@
 
 <div class="container">
     <h1>🏖️ OjinE Roblox Store</h1>
-    <p class="subtitle">☀️ Jasa Verifikasi & Top Up Robux Terpercaya 🌊</p>
+    <p class="subtitle">☀️ Jasa Verifikasi & Top Up Games Terpercaya 🌊</p>
 
     <!-- Kategori Utama Bubble Air -->
     <div class="section-title">✨ Pilih Kategori Layanan</div>
     <div class="category-buttons">
         <button class="cat-btn active" id="btnJasa" onclick="showCategory('jasa')">🛠️ Jasa Roblox</button>
-        <button class="cat-btn" id="btnRobuxUsername" onclick="showCategory('robux-username')">💎 Robux via Username</button>
-        <button class="cat-btn" id="btnRobuxLogin" onclick="showCategory('robux-login')">🔑 Robux via Login</button>
-        <button class="cat-btn" id="btnRobuxGamepass" onclick="showCategory('robux-gamepass')">🎫 Robux via Game Pass</button>
+        <button class="cat-btn" id="btnRobuxUsername" onclick="showCategory('robux-username')">💎 Robux Username</button>
+        <button class="cat-btn" id="btnRobuxLogin" onclick="showCategory('robux-login')">🔑 Robux Login</button>
+        <button class="cat-btn" id="btnRobuxGamepass" onclick="showCategory('robux-gamepass')">🎫 Robux Game Pass</button>
+        <button class="cat-btn" id="btnFF" onclick="showCategory('ff')">🔥 Top Up Free Fire</button>
+        <button class="cat-btn" id="btnML" onclick="showCategory('ml')">⚔️ Top Up Mobile Legends</button>
     </div>
 
     <!-- Sub-Menu Produk -->
@@ -196,10 +198,17 @@
 
     <!-- Form Data Pembeli -->
     <div id="formSection" style="display: none;">
-        <div class="section-title">📝 Data Pembeli</div>
+        <div class="section-title" id="formTitle">📝 Data Pembeli</div>
         
-        <label for="usernameInput">Username Roblox:</label>
-        <input type="text" id="usernameInput" placeholder="Masukkan Username Roblox Anda">
+        <div id="idFieldContainer">
+            <label id="idLabel" for="idInput">Username / ID Roblox:</label>
+            <input type="text" id="idInput" placeholder="Masukkan ID / Username Anda">
+        </div>
+
+        <div id="zoneFieldContainer" style="display: none;">
+            <label for="zoneInput">Server ID / Zone (Contoh: 1234):</label>
+            <input type="text" id="zoneInput" placeholder="Masukkan Server ID / Zone ML">
+        </div>
 
         <div id="passwordFieldContainer" style="display: none;">
             <label for="passwordInput">Password / Data Login:</label>
@@ -264,4 +273,54 @@
             document.getElementById('btnRobuxUsername').classList.add('active');
             titleElem.innerText = "💎 Robux via Username (Rate 15k/100R)";
 
-            for (var r =
+            for (var r = 100; r <= 1000; r += 100) {
+                (function(robuxCount) {
+                    var price = (robuxCount / 100) * 15000;
+                    var priceText = 'Rp ' + price.toLocaleString('id-ID');
+                    var card = document.createElement('div');
+                    card.className = 'option-card';
+                    card.onclick = function() { selectProduct(this, 'Robux via Username (' + robuxCount + 'R)', priceText, 'username'); };
+                    card.innerHTML = '<span>💎 ' + robuxCount + ' Robux (via Username)</span><strong>' + priceText + '</strong>';
+                    container.appendChild(card);
+                })(r);
+            }
+
+        } else if (cat === 'robux-login') {
+            document.getElementById('btnRobuxLogin').classList.add('active');
+            titleElem.innerText = "🔑 Robux via Login (Mulai 80R = Rp 16.000)";
+
+            var listLogin = [
+                { r: 80, price: 16000 },
+                { r: 160, price: 32000 },
+                { r: 240, price: 48000 },
+                { r: 320, price: 64000 },
+                { r: 400, price: 80000 },
+                { r: 480, price: 96000 },
+                { r: 560, price: 112000 },
+                { r: 640, price: 128000 },
+                { r: 720, price: 144000 },
+                { r: 800, price: 160000 },
+                { r: 1000, price: 200000 }
+            ];
+
+            listLogin.forEach(function(item) {
+                var priceText = 'Rp ' + item.price.toLocaleString('id-ID');
+                var card = document.createElement('div');
+                card.className = 'option-card';
+                card.onclick = function() { selectProduct(this, 'Robux via Login (' + item.r + 'R)', priceText, 'login'); };
+                card.innerHTML = '<span>🔑 ' + item.r + ' Robux (via Login)</span><strong>' + priceText + '</strong>';
+                container.appendChild(card);
+            });
+
+        } else if (cat === 'robux-gamepass') {
+            document.getElementById('btnRobuxGamepass').classList.add('active');
+            titleElem.innerText = "🎫 Robux via Game Pass (Rate 13.5k/100R)";
+
+            for (var r2 = 100; r2 <= 1000; r2 += 100) {
+                (function(robuxCount) {
+                    var price = (robuxCount / 100) * 13500;
+                    var priceText = 'Rp ' + price.toLocaleString('id-ID');
+                    var card = document.createElement('div');
+                    card.className = 'option-card';
+                    card.onclick = function() { selectProduct(this, 'Robux via Game Pass (' + robuxCount + 'R)', priceText, 'username'); };
+                    card.innerHTML = '<span>🎫 ' + rob
